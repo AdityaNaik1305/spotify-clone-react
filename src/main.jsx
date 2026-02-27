@@ -7,7 +7,7 @@ import PlayerContextProvider from './context/PlayerContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/spotify-clone-react/">
     <PlayerContextProvider>
       <App />
     </PlayerContextProvider>
