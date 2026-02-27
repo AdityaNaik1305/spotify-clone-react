@@ -1,0 +1,58 @@
+import React, { useContext } from 'react'
+import Navbar from './Navbar'
+import { useParams } from 'react-router-dom'
+import { albumsData } from '../assets/assets';
+import { assets, songsData } from '../assets/assets';
+import { PlayerContext } from '../context/PlayerContext';
+
+const DisplayAlbum = () => {
+
+  const { id } = useParams();
+  const album = albumsData[id];
+  const { playWithId } = useContext(PlayerContext);
+
+
+  return (
+    <>
+      <Navbar />
+      <div className='mt-10 flex gap-8 flex-col md:flex-row md:items-end'>
+        <img className='w-48 rounded' src={album.image} alt='' />
+        <div className='flex flex-col'>
+          <p>Playlist</p>
+          <h2 className='text-5xl font-bold mb-4 md:text-7xl'>{album.name}</h2>
+          <h4>{album.desc}</h4>
+          <p className='mt-1'>
+            <img className='inline-block w-5' src={assets.spotify_logo} alt='' />
+            <strong className='ml-3'>Spotify</strong>
+            <strong className='ml-3'>1,345,245 likes</strong>
+            <strong className='ml-3'>50 songs</strong>
+            <strong className='ml-3'>about 2 hr 30 min</strong>
+          </p>
+        </div>
+      </div>
+      <div className='grid grid-cols-3 sm:grid-cols-4 mt-10 mb-4 pl-2 text-[#a7a7a7]'>
+        <p><strong className='mr-4'>#</strong>Title</p>
+        <p>Album</p>
+        <p className='hidden sm:block'>Data Added</p>
+        <img className='m-auto w-4' src={assets.clock_icon} alt='' />
+      </div>
+      <hr />
+      {songsData.map((item, index) => (
+        <div onClick={() => playWithId(item.id)} key={index} className='grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer'>
+          <p className='text-white'>
+            <strong className='mr-4 text-[#a7a7a7]'>{index + 1}</strong>
+            <img className='inline w-10 mr-5' src={item.image} alt='' />
+            {item.name}
+          </p>
+          <p className='text-[15px]'>{album.name}</p>
+          <p className='text-[15px] hidden sm:block'>1 day ago</p>
+          <p className='text-[15px] text-center'>{item.duration}</p>
+        </div>
+      ))}
+
+
+    </>
+  )
+}
+
+export default DisplayAlbum
